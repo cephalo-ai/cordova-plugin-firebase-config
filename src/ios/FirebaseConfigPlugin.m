@@ -18,7 +18,7 @@
     }
 }
 
-- (void)update:(CDVInvokedUrlCommand *)command {
+- (void)fetch:(CDVInvokedUrlCommand *)command {
     NSNumber* ttlSeconds = [command argumentAtIndex:0];
     long expirationDuration = [ttlSeconds longValue];
 
@@ -30,8 +30,6 @@
         CDVPluginResult *pluginResult = nil;
 
         if (status == FIRRemoteConfigFetchStatusSuccess) {
-            [self.remoteConfig activateFetched];
-
             pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
         } else {
             pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsString:error.localizedDescription];
