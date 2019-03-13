@@ -17,6 +17,18 @@
         [self.remoteConfig setDefaultsFromPlistFileName:plistFilename];
     }
 }
+- (void)activate:(CDVInvokedUrlCommand *)command {
+    CDVPluginResult *pluginResult = nil;
+    Boolean activationSuccess = [self.remoteConfig activateFetched];
+
+    if (activationSuccess) {
+        pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
+    } else {
+        pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsString:@"Error: activation of remote config parameters failed";
+    }
+
+    [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
+}
 
 - (void)fetch:(CDVInvokedUrlCommand *)command {
     NSNumber* ttlSeconds = [command argumentAtIndex:0];
