@@ -8,9 +8,14 @@ function promiseParameter(type, key, namespace) {
 }
 
 module.exports = {
-    update: function(ttlSeconds) {
+    activate: function() {
         return new Promise(function(resolve, reject) {
-            exec(resolve, reject, PLUGIN_NAME, "update", [ttlSeconds || 0]);
+            exec(resolve, reject, PLUGIN_NAME, 'activate', []);
+        });
+    },
+    fetch: function(ttlSeconds) {
+        return new Promise(function(resolve, reject) {
+            exec(resolve, reject, PLUGIN_NAME, "fetch", [ttlSeconds || 0]);
         });
     },
     getBoolean: function(key, namespace) {
